@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TeamService {
@@ -27,12 +24,29 @@ public class TeamService {
         teamMap.put( 6 ,new Team(6, "team6","",null));
     }
     public List<Team> getAllTeams() {
+            List<Student> students =StudentService.getAllStudents();
+            Collections.shuffle(students);
+            teamMap.forEach((index,team) ->{
+                ArrayList teamStudents =new ArrayList<>();
+                for (int i = 0; i < students.size(); i++) {
+                    if((i % 6+1)==index) {
+                        teamStudents.add(students.get(i));
+                    }
+                }
+                team.setStudents(teamStudents);
+            });
         return new ArrayList<>(teamMap.values());
     }
+
+    public Team getTeamById(Integer id) {
+        return teamMap.get(id);
+    }
+
     public Team updateTeamById(Integer teamId,Team updateTeam){
         Team team=teamMap.get(teamId);
         team.setTeamName(updateTeam.getTeamName());
         team.setTeamNote(updateTeam.getTeamNote()==null?team.getTeamNote():updateTeam.getTeamNote());
         return team;
     }
+
 }

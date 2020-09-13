@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Service
 public class StudentService {
-    private Map<Integer, Student> studentMap = new HashMap<>();
+    private static Map<Integer, Student> studentMap = new HashMap<>();
 
     public StudentService() {
         studentMap.put( 1 ,new Student(1, "沈乐棋","男",""));
@@ -28,7 +28,7 @@ public class StudentService {
         studentMap.put( 8 ,new Student(8, "胡晓","女",""));
         studentMap.put( 9 ,new Student(9, "但杰","男",""));
     }
-    public List<Student> getAllStudents() {
+    public static List<Student> getAllStudents() {
         return new ArrayList<>(studentMap.values());
     }
 

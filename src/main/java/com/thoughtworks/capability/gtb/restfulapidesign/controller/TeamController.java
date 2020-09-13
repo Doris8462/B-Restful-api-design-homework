@@ -20,8 +20,12 @@ public class TeamController {
     }
 
     @GetMapping("/teams")
-    public List<Team> getAllStudents(@Valid Team team){
+    public List<Team> getAllTeams(@Valid Team team){
         return teamService.getAllTeams();
+    }
+    @GetMapping("/teams/{id}")
+    public Team getTeamById(@PathVariable("id") @Min(1) Integer id){
+        return teamService.getTeamById(id);
     }
     @PatchMapping("/teams/{id}")
     public Team updateTeamName(@PathVariable("id") @Min(1) Integer id, @RequestBody Team team){
