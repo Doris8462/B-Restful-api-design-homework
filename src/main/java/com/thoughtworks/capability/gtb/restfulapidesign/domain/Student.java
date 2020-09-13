@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {
-    @NotNull
     private Integer id;
     @NotNull
     private String name;
+    @NotNull
     private String gender;
     private String note;
 }

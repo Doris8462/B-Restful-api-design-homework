@@ -1,5 +1,6 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.controller;
 import com.thoughtworks.capability.gtb.restfulapidesign.domain.Student;
+import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentAlreadyExistsException;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -26,6 +27,11 @@ public class StudentController {
     @GetMapping("/students/{id}")
     public Student getStudentById(@PathVariable("id") @Min(1) Integer id){
         return studentService.getStudentById(id);
+    }
+    @PostMapping("/students")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerUser(@RequestBody Student student) throws StudentAlreadyExistsException {
+        studentService.addStudent(student);
     }
 
 }

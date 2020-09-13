@@ -13,6 +13,11 @@ import java.util.Set;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(StudentAlreadyExistsException.class)
+    public ResponseEntity<ErrorResult> handle(StudentAlreadyExistsException ex) {
+        ErrorResult errorResult = new ErrorResult(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResult);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResult> handle(MethodArgumentNotValidException ex) {
