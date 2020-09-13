@@ -29,5 +29,10 @@ public class TeamService {
     public List<Team> getAllTeams() {
         return new ArrayList<>(teamMap.values());
     }
-
+    public Team updateTeamById(Integer teamId,Team updateTeam){
+        Team team=teamMap.get(teamId);
+        team.setTeamName(updateTeam.getTeamName());
+        team.setTeamNote(updateTeam.getTeamNote()==null?team.getTeamNote():updateTeam.getTeamNote());
+        return team;
+    }
 }
