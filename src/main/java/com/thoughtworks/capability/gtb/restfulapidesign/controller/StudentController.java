@@ -29,24 +29,27 @@ public class StudentController {
     public List<Student> getStudentsByGender(@PathVariable String gender) {
         return studentService.getAllStudentsByGender(gender);
     }
+
     @GetMapping("/students/{id}")
     public Student getStudentById(@PathVariable("id") @Min(1) Integer id){
         return studentService.getStudentById(id);
     }
+
     @PostMapping("/students")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUser(@RequestBody Student student) throws StudentAlreadyExistsException {
         studentService.addStudent(student);
     }
+
     @DeleteMapping("/students/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteStudentById(@PathVariable("id") @Min(1) Integer id){
         studentService.deleteStudentById(id);
     }
+
     @PatchMapping("/students/{id}")
     public Student updateStudentById(@PathVariable("id") @Min(1) Integer id, @RequestBody Student student) {
         studentService.updateStudentById(id, student);
         return studentService.getStudentById(id);
     }
-
 }

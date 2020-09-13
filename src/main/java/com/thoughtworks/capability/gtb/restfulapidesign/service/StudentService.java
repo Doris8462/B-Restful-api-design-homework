@@ -2,11 +2,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.domain.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentAlreadyExistsException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +33,7 @@ public class StudentService {
     }
 
     public void addStudent(Student student) {
-        if(studentMap.containsKey(student.getName())) {
+        if(studentMap.containsKey(student.getId())) {
             throw new StudentAlreadyExistsException("用户已存在");
         }
         else {
@@ -71,6 +67,6 @@ public class StudentService {
             if(gender.equals(student.getGender()))
                 students.add(student);
         });
-                return students;
+        return students;
     }
 }

@@ -3,11 +3,8 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 import com.thoughtworks.capability.gtb.restfulapidesign.domain.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.domain.Team;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentAlreadyExistsException;
-import org.springframework.http.HttpStatus;
+import com.thoughtworks.capability.gtb.restfulapidesign.exception.TeamNotExistException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.*;
 
@@ -39,7 +36,8 @@ public class TeamService {
     }
 
     public Team getTeamById(Integer id) {
-        return teamMap.get(id);
+        if(!teamMap.containsKey(id)) throw new TeamNotExistException("小组不存在");
+        else return teamMap.get(id);
     }
 
     public Team updateTeamById(Integer teamId,Team updateTeam){
