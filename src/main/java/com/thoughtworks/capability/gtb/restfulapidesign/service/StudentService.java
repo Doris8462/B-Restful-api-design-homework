@@ -64,4 +64,13 @@ public class StudentService {
             student.setNote(updateStudent.getNote()!=null?updateStudent.getNote():student.getNote());
         }
     }
+
+    public List<Student> getAllStudentsByGender(String gender)  {
+        List<Student> students=new ArrayList<Student>();
+        studentMap.forEach((index,student) -> {
+            if(gender.equals(student.getGender()))
+                students.add(student);
+        });
+                return students;
+    }
 }

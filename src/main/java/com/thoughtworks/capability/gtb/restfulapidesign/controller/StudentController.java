@@ -24,6 +24,11 @@ public class StudentController {
     public List<Student> getAllStudents(@Valid Student student){
         return studentService.getAllStudents();
     }
+
+    @GetMapping("/students/genders/{gender}")
+    public List<Student> getStudentsByGender(@PathVariable String gender) {
+        return studentService.getAllStudentsByGender(gender);
+    }
     @GetMapping("/students/{id}")
     public Student getStudentById(@PathVariable("id") @Min(1) Integer id){
         return studentService.getStudentById(id);
