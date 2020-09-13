@@ -38,5 +38,10 @@ public class StudentController {
     public void deleteStudentById(@PathVariable("id") @Min(1) Integer id){
         studentService.deleteStudentById(id);
     }
+    @PatchMapping("/students/{id}")
+    public Student updateStudentById(@PathVariable("id") @Min(1) Integer id, @RequestBody Student student) {
+        studentService.updateStudentById(id, student);
+        return studentService.getStudentById(id);
+    }
 
 }
