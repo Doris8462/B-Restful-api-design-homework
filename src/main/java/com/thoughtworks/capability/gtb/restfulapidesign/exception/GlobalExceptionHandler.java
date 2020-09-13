@@ -13,6 +13,12 @@ import java.util.Set;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(StudentNotExistException.class)
+    public ResponseEntity<ErrorResult> handle(StudentNotExistException ex) {
+        ErrorResult errorResult = new ErrorResult(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResult);
+    }
+
     @ExceptionHandler(StudentAlreadyExistsException.class)
     public ResponseEntity<ErrorResult> handle(StudentAlreadyExistsException ex) {
         ErrorResult errorResult = new ErrorResult(ex.getMessage());

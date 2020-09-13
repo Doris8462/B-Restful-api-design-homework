@@ -45,4 +45,11 @@ public class StudentService {
             studentMap.put(student.getName(), student);
         }
     }
+
+    public void deleteStudentById(Integer id) {
+        if(studentMap.size()<id) {
+            throw new StudentAlreadyExistsException("用户不存在");
+        }
+        else studentMap.remove(id);
+    }
 }

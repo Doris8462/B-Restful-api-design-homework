@@ -33,5 +33,10 @@ public class StudentController {
     public void registerUser(@RequestBody Student student) throws StudentAlreadyExistsException {
         studentService.addStudent(student);
     }
+    @DeleteMapping("/students/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteStudentById(@PathVariable("id") @Min(1) Integer id){
+        studentService.deleteStudentById(id);
+    }
 
 }
