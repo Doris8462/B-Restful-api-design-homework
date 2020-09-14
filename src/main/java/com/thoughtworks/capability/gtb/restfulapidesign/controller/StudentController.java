@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
+@RequestMapping("/students")
 @Validated
 public class StudentController {
 
@@ -20,34 +21,34 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/students")
+    @GetMapping("")
     public List<Student> getAllStudents(@Valid Student student){
         return studentService.getAllStudents();
     }
 
-    @GetMapping("/students/genders/{gender}")
+    @GetMapping("/genders/{gender}")
     public List<Student> getStudentsByGender(@PathVariable String gender) {
         return studentService.getAllStudentsByGender(gender);
     }
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/{id}")
     public Student getStudentById(@PathVariable("id") @Min(1) Integer id){
         return studentService.getStudentById(id);
     }
 
-    @PostMapping("/students")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUser(@RequestBody Student student) throws StudentAlreadyExistsException {
         studentService.addStudent(student);
     }
 
-    @DeleteMapping("/students/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteStudentById(@PathVariable("id") @Min(1) Integer id){
         studentService.deleteStudentById(id);
     }
 
-    @PatchMapping("/students/{id}")
+    @PatchMapping("/{id}")
     public Student updateStudentById(@PathVariable("id") @Min(1) Integer id, @RequestBody Student student) {
         studentService.updateStudentById(id, student);
         return studentService.getStudentById(id);

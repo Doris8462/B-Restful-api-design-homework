@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
+@RequestMapping("/teams")
 @Validated
 public class TeamController {
     private TeamService teamService;
@@ -19,15 +20,15 @@ public class TeamController {
         this.teamService = teamService;
     }
 
-    @GetMapping("/teams")
+    @GetMapping("")
     public List<Team> getAllTeams(@Valid Team team){
         return teamService.getAllTeams();
     }
-    @GetMapping("/teams/{id}")
+    @GetMapping("/{id}")
     public Team getTeamById(@PathVariable("id") @Min(1) Integer id){
         return teamService.getTeamById(id);
     }
-    @PatchMapping("/teams/{id}")
+    @PatchMapping("/{id}")
     public Team updateTeamName(@PathVariable("id") @Min(1) Integer id, @RequestBody Team team){
         return teamService.updateTeamById(id,team);
     }
