@@ -1,4 +1,5 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.controller;
+
 import com.thoughtworks.capability.gtb.restfulapidesign.domain.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentAlreadyExistsException;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.StudentService;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/v1/students")
 @Validated
 public class StudentController {
 
@@ -21,22 +22,17 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("")
-    public List<Student> getAllStudents(@Valid Student student){
-        return studentService.getAllStudents();
-    }
-
-    @GetMapping("/genders/{gender}")
-    public List<Student> getStudentsByGender(@PathVariable String gender) {
-        return studentService.getAllStudentsByGender(gender);
+    @GetMapping
+    public List<Student> getStudents(@RequestParam(required = false) String gender) {
+        return studentService.getStudentsByGender(gender);
     }
 
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable("id") @Min(1) Integer id){
+    public Student getStudentById(@PathVariable("id") @Min(1) Integer id) {
         return studentService.getStudentById(id);
     }
 
-    @PostMapping("")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUser(@RequestBody Student student) throws StudentAlreadyExistsException {
         studentService.addStudent(student);
@@ -44,7 +40,7 @@ public class StudentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteStudentById(@PathVariable("id") @Min(1) Integer id){
+    public void deleteStudentById(@PathVariable("id") @Min(1) Integer id) {
         studentService.deleteStudentById(id);
     }
 

@@ -2,7 +2,6 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.domain.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.domain.Team;
-import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentAlreadyExistsException;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.TeamNotExistException;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +20,10 @@ public class TeamService {
         teamMap.put( 6 ,new Team(6, "team6","",null));
     }
     public List<Team> getAllTeams() {
-            List<Student> students =StudentService.getAllStudents();
+            List<Student> students =StudentService.getStudentsByGender(null);
             Collections.shuffle(students);
             teamMap.forEach((index,team) ->{
-                ArrayList teamStudents =new ArrayList<>();
+                ArrayList<Student> teamStudents =new ArrayList<Student>();
                 for (int i = 0; i < students.size(); i++) {
                     if((i % 6+1)==index) {
                         teamStudents.add(students.get(i));
@@ -36,11 +35,16 @@ public class TeamService {
     }
 
     public Team getTeamById(Integer id) {
-        if(!teamMap.containsKey(id)) throw new TeamNotExistException("小组不存在");
-        else return teamMap.get(id);
+        if(!teamMap.containsKey(id)) {
+            throw new TeamNotExistException("小组不存在");
+        }
+        return teamMap.get(id);
     }
 
     public Team updateTeamById(Integer teamId,Team updateTeam){
+        if(!teamMap.containsKey(teamId)) {
+            throw new TeamNotExistException("小组不存在");
+        }
         Team team=teamMap.get(teamId);
         team.setTeamName(updateTeam.getTeamName());
         team.setTeamNote(updateTeam.getTeamNote()==null?team.getTeamNote():updateTeam.getTeamNote());
